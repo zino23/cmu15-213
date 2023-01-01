@@ -1,0 +1,81 @@
+clang -std=c99 -Og -g -Wall -Wextra -Wpedantic -Wconversion -Wstrict-prototypes -Wwrite-strings -Werror -fsanitize=address,undefined -o report.o -c report.c
+clang -L/usr/local/opt/openssl@3/lib -fsanitize=address,undefined  -o qtest qtest.o report.o console.o harness.o queue.o 
+chmod +x driver.py
+./driver.py
+---	Trace		Points
+
++++ TESTING trace trace-01-ops:
+./qtest -v 1 -f ./traces/trace-01-ops.cmd
+# Test of insert_head and remove_head
+---	trace-01-ops	6/6
+
++++ TESTING trace trace-02-ops:
+./qtest -v 1 -f ./traces/trace-02-ops.cmd
+# Test of insert_head, insert_tail, and remove_head
+---	trace-02-ops	6/6
+
++++ TESTING trace trace-03-ops:
+./qtest -v 1 -f ./traces/trace-03-ops.cmd
+# Test of insert_head, insert_tail, reverse, and remove_head
+---	trace-03-ops	6/6
+
++++ TESTING trace trace-04-ops:
+./qtest -v 1 -f ./traces/trace-04-ops.cmd
+# Test of insert_head, insert_tail, and size
+---	trace-04-ops	6/6
+
++++ TESTING trace trace-05-ops:
+./qtest -v 1 -f ./traces/trace-05-ops.cmd
+# Test of insert_head, insert_tail, remove_head reverse, and size
+---	trace-05-ops	6/6
+
++++ TESTING trace trace-06-string:
+./qtest -v 1 -f ./traces/trace-06-string.cmd
+# Test of truncated strings
+---	trace-06-string	7/7
+
++++ TESTING trace trace-07-robust:
+./qtest -v 1 -f ./traces/trace-07-robust.cmd
+# Test operations on NULL queue
+---	trace-07-robust	7/7
+
++++ TESTING trace trace-08-robust:
+./qtest -v 1 -f ./traces/trace-08-robust.cmd
+# Test operations on empty queue
+---	trace-08-robust	7/7
+
++++ TESTING trace trace-09-robust:
+./qtest -v 1 -f ./traces/trace-09-robust.cmd
+# Test remove_head with NULL argument
+---	trace-09-robust	7/7
+
++++ TESTING trace trace-10-malloc:
+./qtest -v 1 -f ./traces/trace-10-malloc.cmd
+# Test of malloc failure on new
+---	trace-10-malloc	7/7
+
++++ TESTING trace trace-11-malloc:
+./qtest -v 1 -f ./traces/trace-11-malloc.cmd
+# Test of malloc failure on insert_head
+---	trace-11-malloc	7/7
+
++++ TESTING trace trace-12-malloc:
+./qtest -v 1 -f ./traces/trace-12-malloc.cmd
+# Test of malloc failure on insert_tail
+---	trace-12-malloc	7/7
+
++++ TESTING trace trace-13-perf:
+./qtest -v 1 -f ./traces/trace-13-perf.cmd
+# Test performance of insert_tail
+---	trace-13-perf	7/7
+
++++ TESTING trace trace-14-perf:
+./qtest -v 1 -f ./traces/trace-14-perf.cmd
+# Test performance of size
+---	trace-14-perf	7/7
+
++++ TESTING trace trace-15-perf:
+./qtest -v 1 -f ./traces/trace-15-perf.cmd
+# Test performance of insert_tail, size, and reverse
+---	trace-15-perf	7/7
+---	TOTAL		100/100

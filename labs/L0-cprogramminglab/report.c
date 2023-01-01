@@ -131,7 +131,7 @@ void safe_report(int level, const char *msg) {
 
 /* Need to be able to print without using malloc */
 NORETURN fail_fun(const char *format, const char *msg) {
-    sprintf(fail_buf, format, msg);
+    snprintf(fail_buf, 1024, format, msg);
     /* Tack on return */
     fail_buf[strlen(fail_buf)] = '\n';
     /* Use write to avoid any buffering issues */
